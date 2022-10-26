@@ -1,0 +1,20 @@
+var hero:CharacterExample;
+var characters:Array<CharacterExample> = [];
+
+override function init() {
+  this.hero = new HeroExample(s2d, 20, 80, 0x009855, 100, 100);
+  hero.characterName = 'Hero';
+  this.characters.push(this.hero);
+  this.characters.push(new CharacterExample(s2d, 20, 80, 0x992255, 200, 100));
+  this.characters.push(new CharacterExample(s2d, 20, 80, 0x2255FF, 100, 200));
+}
+override function update(dt) {
+  for (character in this.characters) {
+    character.alpha = 1;
+    character.update(dt);
+    var hitBox = character.getBounds();
+    var heroHitBox = this.hero.getHitbox();
+    if (heroHitBox.intersects(hitBox) && character != this.hero)
+      character.alpha = .2;
+  }
+}
